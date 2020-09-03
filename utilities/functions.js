@@ -46,4 +46,32 @@ function overlap(actor1, actor2) {
 
 }
 
-export { elt, overlap, drawGrid, drawActors }
+function trackKeys(keys) {
+    let pressed = Object.create(null);
+
+    function track(event) {
+        if (keys.includes(event.key)) {
+            pressed[event.key] = event.type == 'keydown';
+            event.preventDefault();
+        }
+    }
+    window.addEventListener("keydown", track);
+    window.addEventListener("keyup", track);
+    return pressed;
+}
+
+function runAnimation(frameFunc) {
+    let lastTime = null;
+
+    function frame(time) {
+        if (lastTime != null) {
+            let timeStep = Math.min(time - lastTime, 100) / 1000;
+            if (frameFunc(timeStep) === "false") return;
+        }
+        lastTime = time;
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
+
+export { elt, overlap, drawGrid, drawActors, trackKeys, runAnimation }

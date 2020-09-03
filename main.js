@@ -1,5 +1,5 @@
-import { overlap } from "./utilities/functions.js";
-import { levelChars, simpleLevelPlan } from "./variables/var.js";
+import { overlap, runAnimation } from "./utilities/functions.js";
+import { levelChars, simpleLevelPlan, arrowKeys } from "./variables/var.js";
 import { Vec, DOMDisplay } from "./utilities/classes.js";
 // import { Lava, Player, Coin } from "./actors/_actors.js";
 class Level {
@@ -8,6 +8,7 @@ class Level {
         this.height = rows.length;
         this.width = rows[0].length;
         this.startActors = [];
+
 
         this.rows = rows.map((row, y) => {
             return row.map((ch, x) => {
@@ -50,14 +51,17 @@ class State {
     }
 
     get player() {
+
         return this.actors.find(a => a.type == "player")
     }
 }
 
 State.prototype.update = function(time, keys) {
+
     let actors = this.actors.map(actor => actor.update(time, this, keys));
     let newState = new State(this.level, actors, this.status);
 
+    let player = newState.player;
     if (newState.status != "playing") return newState;
     if (this.level.touches(player.pos, player.size, "lava")) {
         return new State(this.level, actors, "lost");
@@ -70,7 +74,40 @@ State.prototype.update = function(time, keys) {
     return newState;
 }
 
+function runLevel(level, Display) {
+    let display = new Display(document.body, level);
+    let state = State.start(level);
+    let ending = 1;
+    return new Promise(resolve => {
+        runAnimation(time => {
+            state = state.update(time, arrowKeys);
 
+            display.syncState(state);
+            if (state.status == "playing") {
+                return true;
+            } else if (ending > 0) {
+                ending -= time;
+            } else {
+                display.clear();
+                resolve(state.status);
+                return false;
+            }
+        })
+    })
+}
 let simpleLevel = new Level(simpleLevelPlan);
-let display = new DOMDisplay(document.body, simpleLevel);
-display.syncState(State.start(simpleLevel));
+async function runGame(Display) {
+    // for (level = 0; level < plans.length;) {
+
+    // }
+    let status = await runLevel(new Level(simpleLevelPlan), Display)
+    if (status == "won") level++;
+    console.log("You've won!")
+}
+
+runGame(DOMDisplay)
+
+// let display = new DOMDisplay(document.body, simpleLevel);
+// display.syncState(State.start(simpleLevel));
+
+export { State }

@@ -28,7 +28,6 @@ class DOMDisplay {
 
 DOMDisplay.prototype.syncState = function(state) {
     if (this.actorLayer) this.actorLayer.remove();
-    console.log(state.actors);
     this.actorLayer = drawActors(state.actors);
 
     this.dom.appendChild(this.actorLayer);
