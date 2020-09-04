@@ -17,7 +17,6 @@ class Vec {
 
 class DOMDisplay {
     constructor(parent, level) {
-        console.log(level)
         this.dom = elt("div", { class: "game" }, drawGrid(level));
         this.actorLayer = null;
         parent.appendChild(this.dom)
