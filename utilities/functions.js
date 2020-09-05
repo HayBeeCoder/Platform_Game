@@ -1,4 +1,5 @@
 import { scale } from "../variables/var.js"
+import { State } from "../utilities/classes.js";
 
 function elt(name, attrs, ...children) {
     let dom = document.createElement(name);
@@ -43,7 +44,6 @@ function overlap(actor1, actor2) {
         actor1.pos.x < actor2.pos.x + actor2.size.x &&
         actor1.pos.y + actor1.size.y > actor2.pos.y &&
         actor1.pos.y < actor2.pos.y + actor2.size.y;
-
 }
 
 function trackKeys(keys) {
@@ -57,6 +57,10 @@ function trackKeys(keys) {
     }
     window.addEventListener("keydown", track);
     window.addEventListener("keyup", track);
+    pressed.unregister = () => {
+        window.removeEventListener("keydown", track);
+        window.removeEventListener("keyup", track);
+    }
     return pressed;
 }
 
@@ -74,4 +78,53 @@ function runAnimation(frameFunc) {
     requestAnimationFrame(frame);
 }
 
-export { elt, overlap, drawGrid, drawActors, trackKeys, runAnimation }
+
+function runLevel(level, Display) {
+    let display = new Display(document.body, level);
+    let state = State.start(level);
+    let running = 'yes';
+    let ending = 1;
+
+    return new Promise(resolve => {
+
+        function escHandler(event) {
+            if (event.key != 'Escape') return;
+            event.preventDefault();
+            if (running == "no") {
+                running = 'yes';
+                runAnimation(frame);
+            } else if (running == 'yes') {
+                running = 'pausing'
+            } else {
+                running = 'yes';
+            }
+        }
+        window.addEventListener("keydown", escHandler);
+        let arrowKeys = trackKeys(['ArrowUp', 'ArrowRight', 'ArrowLeft']);
+
+        function frame(time) {
+            if (running == 'pausing') {
+                running == 'no';
+                return false;
+            }
+            state = state.update(time, arrowKeys);
+            display.syncState(state);
+            if (state.status == "playing") {
+                return true;
+            } else if (ending > 0) {
+                ending -= time;
+            } else {
+                arrowKeys.unregister();
+                display.clear();
+                window.removeEventListener("keydown", escHandler);
+
+                resolve(state.status);
+                return false;
+            }
+        }
+        runAnimation(frame);
+    });
+
+}
+
+export { elt, overlap, drawGrid, drawActors, trackKeys, runAnimation, runLevel }

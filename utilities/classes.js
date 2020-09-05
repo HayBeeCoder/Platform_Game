@@ -1,4 +1,4 @@
-import { elt, drawGrid, drawActors } from './functions.js';
+import { elt, drawGrid, drawActors, overlap } from './functions.js';
 import { scale } from "../variables/var.js";
 
 class Vec {
@@ -14,6 +14,43 @@ class Vec {
     }
 }
 
+
+class State {
+    constructor(level, actors, status) {
+        this.level = level;
+        this.actors = actors;
+        this.status = status;
+    }
+
+    static start(level) {
+        return new State(level, level.startActors, "playing");
+    }
+
+    get player() {
+        return this.actors.find(a => a.type == "player")
+    }
+    get monster() {
+        return this.actors.find(a => a.type == "monster");
+    }
+}
+
+State.prototype.update = function(time, keys) {
+
+    let actors = this.actors.map(actor => actor.update(time, this, keys));
+    let newState = new State(this.level, actors, this.status);
+
+    let player = newState.player;
+    if (newState.status != "playing") return newState;
+    if (this.level.touches(player.pos, player.size, "lava")) {
+        return new State(this.level, actors, "lost");
+    }
+    for (let actor of actors) {
+        if (actor != player && overlap(actor, player)) {
+            newState = actor.collide(newState);
+        }
+    }
+    return newState;
+}
 
 class DOMDisplay {
     constructor(parent, level) {
@@ -59,4 +96,4 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
     }
 };
 
-export { Vec, DOMDisplay }
+export { Vec, DOMDisplay, State }

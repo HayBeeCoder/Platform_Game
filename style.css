@@ -24,8 +24,13 @@ body {
     position: absolute;
 }
 
+.monster {
+    background: purple;
+}
+
 .coin {
     background: rgb(241, 229, 89);
+    border-radius: 5px;
 }
 
 .player {
