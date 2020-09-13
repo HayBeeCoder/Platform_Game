@@ -1,7 +1,7 @@
 
-<p><a href= "https://platform-game-e1kb2j4sk.vercel.app" >Play live here! </a></p>
-/
-#<h1>A PLATFORM GAME</h1>
+<p><a href= "https://platform-game-e1kb2j4sk.vercel.app" >PLAY LIVE HERE ! </a></p>
+
+<h1>A PLATFORM GAME</h1>
 
 <h2 id="introduction">INTRODUCTION</h2>
 This game is based on Dark Blue(<a href="www.lessmilk.com/games/10">www.lessmilk.com/games/10</a>) by Thomas Palef.Technologies used include HTML(table) , CSS and VanillaJS(DOM).
