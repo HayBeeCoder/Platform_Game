@@ -1,6 +1,6 @@
-#<p><a href= "#intro">INTRODUCTION</a></p>
-#<p><a href= "#character">CHARACTERS</a></p>
-#<p><a href= "#how">HOW TO PLAY</a></p>
+<p><a href= "#intro">INTRODUCTION</a></p>
+<p><a href= "#character">CHARACTERS</a></p>
+<p><a href= "#how">HOW TO PLAY</a></p>
 
 #<h1>A PLATFORM GAME</h1>
 
