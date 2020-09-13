@@ -1,7 +1,6 @@
-<p><a href= "#intro">INTRODUCTION</a></p>
-<p><a href= "#character">CHARACTERS</a></p>
-<p><a href= "#how">HOW TO PLAY</a></p>
 
+<p><a href= "https://platform-game-e1kb2j4sk.vercel.app" >Play live here! </a></p>
+/
 #<h1>A PLATFORM GAME</h1>
 
 <h2 id="introduction">INTRODUCTION</h2>
