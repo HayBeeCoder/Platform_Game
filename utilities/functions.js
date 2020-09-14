@@ -127,4 +127,10 @@ function runLevel(level, Display) {
 
 }
 
-export { elt, overlap, drawGrid, drawActors, trackKeys, runAnimation, runLevel }
+function flipHorizontally(context, around) {
+    context.translate(around, 0);
+    context.scale(-1, 1);
+    context.translate(-around, 0);
+}
+
+export { elt, overlap, drawGrid, drawActors, trackKeys, runAnimation, runLevel, flipHorizontally }

@@ -2,7 +2,7 @@ import { Vec } from "../utilities/classes.js";
 import { wobbleSpeed, wobbleDist } from "../variables/var.js";
 import { playerXSpeed, gravity, jumpSpeed } from "../variables/var.js";
 import { State } from "../utilities/classes.js";
-
+/*
 const monsterSpeed = 4;
 class Monster {
     constructor(pos) { this.pos = pos; }
@@ -31,7 +31,7 @@ class Monster {
 }
 
 Monster.prototype.size = new Vec(1.2, 2);
-
+*/
 class Coin {
     constructor(pos, basePos, wobble) {
         this.pos = pos;
@@ -131,4 +131,4 @@ Player.prototype.update = function(time, state, keys) {
     return new Player(pos, new Vec(xSpeed, ySpeed))
 }
 
-export { Lava, Player, Coin, Monster }
+export { Lava, Player, Coin }

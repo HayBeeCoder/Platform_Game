@@ -1,6 +1,6 @@
 import { runLevel } from "./utilities/functions.js";
 import { levelChars } from "./variables/var.js";
-import { Vec, DOMDisplay } from "./utilities/classes.js";
+import { Vec, DOMDisplay, CanvasDisplay } from "./utilities/classes.js";
 import { gameLevelsPlan } from "./variables/var.js";
 class Level {
     constructor(plan) {
@@ -54,4 +54,4 @@ async function runGame(plans, Display) {
         console.log("Game over");
     }
 }
-runGame(gameLevelsPlan, DOMDisplay);
+runGame(gameLevelsPlan, CanvasDisplay);

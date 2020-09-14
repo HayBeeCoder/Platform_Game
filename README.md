@@ -1,11 +1,11 @@
-#<p><a href= "#intro">INTRODUCTION</a></p>
-#<p><a href= "#character">CHARACTERS</a></p>
-#<p><a href= "#how">HOW TO PLAY</a></p>
+<p><a href= "#intro">INTRODUCTION</a></p>
+<p><a href= "#character">CHARACTERS</a></p>
+<p><a href= "#how">HOW TO PLAY</a></p>
 
-#<h1>A PLATFORM GAME</h1>
+<h1>A PLATFORM GAME</h1>
 
 <h2 id="introduction">INTRODUCTION</h2>
-This game is based on Dark Blue(<a href="www.lessmilk.com/games/10">www.lessmilk.com/games/10</a>) by Thomas Palef.Technologies used include HTML(table) , CSS and VanillaJS(DOM).
+This game is based on Dark Blue ( <strong>www.lessmilk.com/games/10</strong> ) by Thomas Palef.Technologies used include HTML(table) , CSS and VanillaJS(DOM).
 
 <h2 id="character" >CHARACTERS</h2></a>
 <p>Player represented by a dark box.</p>
